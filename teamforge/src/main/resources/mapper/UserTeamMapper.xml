@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 定义mapper接口的命名空间 -->
+<mapper namespace="com.rainsoul.teamforge.mapper.UserTeamMapper">
+
+    <!-- 定义结果映射，用于将数据库中的字段映射到UserTeam实体类中 -->
+    <resultMap id="BaseResultMap" type="com.rainsoul.teamforge.model.domain.UserTeam">
+            <!-- 映射实体类的属性和数据库中的列 -->
+            <id property="id" column="id" jdbcType="BIGINT"/>
+            <result property="userId" column="userId" jdbcType="BIGINT"/>
+            <result property="teamId" column="teamId" jdbcType="BIGINT"/>
+            <result property="joinTime" column="joinTime" jdbcType="TIMESTAMP"/>
+            <result property="createTime" column="createTime" jdbcType="TIMESTAMP"/>
+            <result property="updateTime" column="updateTime" jdbcType="TIMESTAMP"/>
+            <result property="isDelete" column="isDelete" jdbcType="TINYINT"/>
+    </resultMap>
+
+    <!-- 定义一个通用的查询列的SQL片段，用于在不同的查询中复用 -->
+    <sql id="Base_Column_List">
+        id,userId,teamId,
+        joinTime,createTime,updateTime,
+        isDelete
+    </sql>
+</mapper>
