@@ -142,6 +142,11 @@ public class TeamServiceImpl implements TeamService {
 
     @Override
     public boolean joinTeam(TeamJoinRequest teamJoinRequest, User loginUser) {
+        if (teamJoinRequest == null) {
+            throw new BusinessException(ErrorCode.PARAMS_ERROR);
+        }
+        Long teamId = teamJoinRequest.getTeamId();
+        //todo 1. 校验请求参数
         return false;
     }
 
