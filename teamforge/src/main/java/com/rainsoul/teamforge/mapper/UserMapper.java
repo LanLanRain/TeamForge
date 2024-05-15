@@ -1,8 +1,7 @@
 package com.rainsoul.teamforge.mapper;
 
-
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.rainsoul.teamforge.model.domain.User;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
  * 用户 Mapper
@@ -10,7 +9,4 @@ import com.rainsoul.teamforge.model.domain.User;
 public interface UserMapper extends BaseMapper<User> {
 
 }
-
-
-
 
