@@ -1,0 +1,16 @@
+package com.rainsoul.teamforge.service.impl;
+
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.rainsoul.teamforge.mapper.UserTeamMapper;
+import com.rainsoul.teamforge.model.domain.UserTeam;
+import com.rainsoul.teamforge.service.UserTeamService;
+import org.springframework.stereotype.Service;
+
+/**
+ * 用户队伍服务实现类
+ */
+@Service
+public class UserTeamServiceImpl extends ServiceImpl<UserTeamMapper, UserTeam>
+        implements UserTeamService {
+
+}

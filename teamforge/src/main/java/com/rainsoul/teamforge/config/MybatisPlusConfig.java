@@ -4,7 +4,6 @@ import com.baomidou.mybatisplus.annotation.DbType;
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
 import org.mybatis.spring.annotation.MapperScan;
-import org.mybatis.spring.mapper.MapperScannerConfigurer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -14,22 +13,6 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @MapperScan("com.rainsoul.teamforge.mapper") // 扫描指定包下的Mapper接口
 public class MybatisPlusConfig {
-
-    /**
-     * 配置 MapperScannerConfigurer 来扫描 Mapper 接口。
-     * 这个方法不接受任何参数，它会返回一个配置好的 MapperScannerConfigurer 实例。
-     * 这个实例被用来告诉 Spring 在启动时扫描指定包下的 Mapper 接口。
-     *
-     * @return 配置好的 MapperScannerConfigurer 实例。
-     */
-    @Bean
-    public MapperScannerConfigurer mapperScannerConfigurer(){
-        MapperScannerConfigurer scannerConfigurer = new MapperScannerConfigurer();
-        // 设置扫描器的基包，这里指定的是 com.rainsoul.teamforge.mapper 包下所有的接口都会被扫描
-        scannerConfigurer.setBasePackage("com.rainsoul.teamforge.mapper");
-        return scannerConfigurer;
-    }
-
 
     /**
      * 配置Mybatis Plus的分页插件。

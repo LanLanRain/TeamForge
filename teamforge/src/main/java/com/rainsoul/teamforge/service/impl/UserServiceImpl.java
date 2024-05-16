@@ -1,8 +1,7 @@
 package com.rainsoul.teamforge.service.impl;
 
-import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.rainsoul.teamforge.common.ErrorCode;
@@ -10,19 +9,16 @@ import com.rainsoul.teamforge.exception.BusinessException;
 import com.rainsoul.teamforge.mapper.UserMapper;
 import com.rainsoul.teamforge.model.domain.User;
 import com.rainsoul.teamforge.service.UserService;
-import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.DigestUtils;
 
-import java.util.Collection;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
-import java.util.function.Function;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -32,9 +28,10 @@ import static com.rainsoul.teamforge.constant.UserConstant.USER_LOGIN_STATE;
 
 @Service
 @Slf4j
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl extends ServiceImpl<UserMapper, User>
+        implements UserService {
 
-    @Resource
+    @Autowired
     private UserMapper userMapper;
 
     /**
@@ -326,6 +323,7 @@ public class UserServiceImpl implements UserService {
      * 该方法通过给定的标签名列表查询用户。查询条件是用户拥有的标签中包含列表中的所有标签。
      * 注意：该方法使用了SQL的like操作进行标签匹配，可能效率较低，且存在SQL注入的风险。
      * </p>
+     *
      * @param tagNameList 用户要拥有的标签列表。不能为空。
      * @return 返回经过处理的安全用户列表。
      * @throws BusinessException 如果标签名列表为空，抛出此异常。
@@ -346,49 +344,4 @@ public class UserServiceImpl implements UserService {
         return userList.stream().map(this::getSafetyUser).collect(Collectors.toList());
     }
 
-
-    @Override
-    public boolean saveBatch(Collection<User> entityList, int batchSize) {
-        return false;
-    }
-
-    @Override
-    public boolean saveOrUpdateBatch(Collection<User> entityList, int batchSize) {
-        return false;
-    }
-
-    @Override
-    public boolean updateBatchById(Collection<User> entityList, int batchSize) {
-        return false;
-    }
-
-    @Override
-    public boolean saveOrUpdate(User entity) {
-        return false;
-    }
-
-    @Override
-    public User getOne(Wrapper<User> queryWrapper, boolean throwEx) {
-        return null;
-    }
-
-    @Override
-    public Map<String, Object> getMap(Wrapper<User> queryWrapper) {
-        return Map.of();
-    }
-
-    @Override
-    public <V> V getObj(Wrapper<User> queryWrapper, Function<? super Object, V> mapper) {
-        return null;
-    }
-
-    @Override
-    public BaseMapper<User> getBaseMapper() {
-        return null;
-    }
-
-    @Override
-    public Class<User> getEntityClass() {
-        return null;
-    }
 }

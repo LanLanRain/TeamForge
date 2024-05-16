@@ -1,10 +1,10 @@
 package com.rainsoul.teamforge.service.impl;
 
-import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.rainsoul.teamforge.common.ErrorCode;
 import com.rainsoul.teamforge.exception.BusinessException;
+import com.rainsoul.teamforge.mapper.TeamMapper;
 import com.rainsoul.teamforge.model.domain.Team;
 import com.rainsoul.teamforge.model.domain.User;
 import com.rainsoul.teamforge.model.domain.UserTeam;
@@ -23,10 +23,9 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
-import java.util.function.Function;
 
 @Service
-public class TeamServiceImpl implements TeamService {
+public class TeamServiceImpl extends ServiceImpl<TeamMapper, Team> implements TeamService {
 
     @Resource
     private UserTeamService userTeamService;
@@ -38,7 +37,7 @@ public class TeamServiceImpl implements TeamService {
     /**
      * 添加队伍
      *
-     * @param team 需要添加的队伍对象，包含队伍的各种信息
+     * @param team      需要添加的队伍对象，包含队伍的各种信息
      * @param loginUser 当前登录的用户，用于标识谁创建了队伍
      * @return 返回创建的队伍的ID
      * @throws BusinessException 如果参数错误、用户未登录、队伍信息不符合要求、用户创建队伍超过限制等情况发生时抛出
@@ -61,7 +60,7 @@ public class TeamServiceImpl implements TeamService {
         }
         // 4. 检查队伍描述是否过长
         String description = team.getDescription();
-        if (StringUtils.isNotBlank(description) && description.length() > 512){
+        if (StringUtils.isNotBlank(description) && description.length() > 512) {
             throw new BusinessException(ErrorCode.PARAMS_ERROR, "队伍描述过长");
         }
         // 5. 检查队伍状态是否合法
@@ -130,7 +129,7 @@ public class TeamServiceImpl implements TeamService {
             throw new BusinessException(ErrorCode.NO_AUTH);
         }
         TeamStatusEnum teamStatusEnum = TeamStatusEnum.getEnumByCode(teamUpdateRequest.getStatus());
-        if (teamStatusEnum.equals(TeamStatusEnum.SECRET)){
+        if (teamStatusEnum.equals(TeamStatusEnum.SECRET)) {
             if (StringUtils.isBlank(teamUpdateRequest.getPassword()) || teamUpdateRequest.getPassword().length() > 32) {
                 throw new BusinessException(ErrorCode.PARAMS_ERROR, "密码不能为空或者过长");
             }
@@ -160,48 +159,4 @@ public class TeamServiceImpl implements TeamService {
         return false;
     }
 
-    @Override
-    public boolean saveBatch(Collection<Team> entityList, int batchSize) {
-        return false;
-    }
-
-    @Override
-    public boolean saveOrUpdateBatch(Collection<Team> entityList, int batchSize) {
-        return false;
-    }
-
-    @Override
-    public boolean updateBatchById(Collection<Team> entityList, int batchSize) {
-        return false;
-    }
-
-    @Override
-    public boolean saveOrUpdate(Team entity) {
-        return false;
-    }
-
-    @Override
-    public Team getOne(Wrapper<Team> queryWrapper, boolean throwEx) {
-        return null;
-    }
-
-    @Override
-    public Map<String, Object> getMap(Wrapper<Team> queryWrapper) {
-        return Map.of();
-    }
-
-    @Override
-    public <V> V getObj(Wrapper<Team> queryWrapper, Function<? super Object, V> mapper) {
-        return null;
-    }
-
-    @Override
-    public BaseMapper<Team> getBaseMapper() {
-        return null;
-    }
-
-    @Override
-    public Class<Team> getEntityClass() {
-        return null;
-    }
 }
